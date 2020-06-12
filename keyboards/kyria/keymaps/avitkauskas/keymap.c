@@ -217,3 +217,67 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
+
+
+// REVIEW THIS !!!
+//
+//// Here's for the CA_CC_CV
+//
+//enum {
+//    CA_CC_CV = 0
+//};
+//
+//// Tap dance states
+//typedef enum {
+//    SINGLE_TAP,
+//    SINGLE_HOLD,
+//    DOUBLE_SINGLE_TAP
+//} td_state_t;
+//
+//// create a global instance of the tapdance state type
+//static td_state_t td_state;
+//
+//// function to track the current tapdance state
+//int cur_dance (qk_tap_dance_state_t *state);
+//
+//// `finished` function for each tapdance keycode
+//void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data);
+//
+//// track the tapdance state to return
+//int cur_dance (qk_tap_dance_state_t *state) {
+//    if (state->count == 1) {
+//        if (state->interrupted || !state->pressed) {
+//            return SINGLE_TAP;
+//        } else {
+//            return SINGLE_HOLD;
+//        }
+//    }
+//    if (state->count == 2) {
+//        return DOUBLE_SINGLE_TAP;
+//    }
+//    else {
+//        return 3; // any number higher than the maximum state value you return above
+//    }
+//}
+//
+//// handle the possible states for each tapdance keycode you define:
+//
+//void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
+//    td_state = cur_dance(state);
+//    switch (td_state) {
+//        case SINGLE_TAP:
+//            tap_code16(C(KC_C));
+//            break;
+//        case SINGLE_HOLD:
+//            tap_code16(C(KC_A));
+//            break;
+//        case DOUBLE_SINGLE_TAP:
+//            tap_code16(C(KC_V));
+//    }
+//}
+//
+//qk_tap_dance_action_t tap_dance_actions[] = {
+//    [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL)
+//};
+//
+//// Just add TD(CA_CC_CV) anywhere in your layout to use
