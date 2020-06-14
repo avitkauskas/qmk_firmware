@@ -14,74 +14,91 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "keymap_lithuanian_alvis_iso.h"
 
 enum layers {
-    _QWERTY = 0,
-    _LOWER,
-    _RAISE,
-    _ADJUST
+    _BASE = 0,
+    _NAT,
+    _NAV,
+    _ADJ
+};
+
+enum custom_keycodes {
+    CK_LPRN = SAFE_RANGE,
+    CK_RPRN,
+    CK_QUES,
+    CK_MINS,
+    CK_LT,
+    CK_GT,
+    CK_AND,
+    CK_OR
+};
+
+// For the CA_CC_CV (Select all, copy, paste)
+enum {
+    CA_CC_CV = 0
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* 
- * Base Layer: QWERTY
+/*
+ * Base Layer: Modified Colemak
  *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |RAIS/ESC|   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  | \   |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |Ctrl/BS |   A  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  | ;  : |  ' "   |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |LShift|LShift|  |LShift|LShift|   N  |   M  | ,  < | . >  | /  ? |  - _   |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | GUI  | Del  | Enter| Space| Esc  |  | Enter| Space| Tab  | Bksp | AltGr|
- *                        |      |      | Alt  | Lower| Raise|  | Lower| Raise|      |      |      |
- *                        `----------------------------------'  `----------------------------------'
+ * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
+ * │ Esc │  Q  │  W  │  F  │  P  │  G  │                          │  J  │  L  │  U  │  Y  │ ( / │ ) \ │
+ * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
+ * │ BS  │  A  │  S  │  R  │  T  │  D  │                          │  K  │  N  │  E  │  I  │  O  │ ' " │
+ * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+ * │A/C/P│  Z  │  X  │  C  │  V  │  B  │ Alt │Ctrl │  │Ctrl │ Alt │  M  │  H  │ , ; │ . : │ ? ! │ - _ │
+ * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
+ *                   │ Adj │ Cmd │     │CLock│ Tab │  │Enter│Space│     │ Cmd │ Nav │
+ *                   │     │     │ Nat │Shift│     │  │     │Shift│ Nat │     │     │
+ *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
  */
-    [_QWERTY] = LAYOUT(
-      LT(_RAISE, KC_ESC),       KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE,
-      MT(MOD_LCTL, KC_BSPC),   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-      KC_LSFT,                 KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_LSFT,   KC_LSFT, KC_LSFT, KC_LSFT, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-              KC_LGUI, KC_DEL, MT(MOD_LALT, KC_ENT), LT(_LOWER, KC_SPC), LT(_RAISE, KC_ESC), LT(_LOWER, KC_ENT), LT(_RAISE, KC_SPC), KC_TAB,  KC_BSPC, KC_RALT
+    [_BASE] = LAYOUT(
+      KC_ESC,       LT_Q, LT_W, LT_F, LT_P, LT_G,                                       LT_J, LT_L, LT_U,    LT_Y,   CK_LPRN, CK_RPRN,
+      KC_BSPC,      LT_A, LT_S, LT_R, LT_T, LT_D,                                       LT_K, LT_N, LT_E,    LT_I,   LT_O,    LT_QUOT,
+      TD(CA_CC_CV), LT_Z, LT_X, LT_C, LT_V, LT_B, KC_LALT, KC_LCTL,   KC_LCTL, KC_LALT, LT_M, LT_H, LT_COMM, LT_DOT, CK_QUES, CK_MINS,
+               TG(_ADJ), KC_LGUI, OSL(_NAT), OSM(MOD_LSFT), KC_TAB,   KC_ENT, SFT_T(KC_SPC), OSL(_NAT), KC_LGUI, TG(_NAV)
     ),
 /*
- * Lower Layer: Symbols
+ * National Layer: National symbols, numbers and special characters
  *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  !   |  @   |  {   |  }   |  |   |                              |      |      |      |      |      |  | \   |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  #   |  $   |  (   |  )   |  `   |                              |   +  |  -   |  /   |  *   |  %   |  ' "   |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  %   |  ^   |  [   |  ]   |  ~   |      |      |  |      |      |   &  |  =   |  ,   |  .   |  / ? | - _    |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |  ;   |  =   |  |  =   |  ;   |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
+ * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
+ * │  @  │  1  │  2  │  3  │  4  │  5  │                          │  6  │  7  │  8  │  9  │  0  │  =  │
+ * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
+ * │     │  Ą  │  Š  │  Ū  │  Ž  │ < { │                          │ > } │  Ų  │  Ė  │  Į  │  +  │  -  │
+ * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+ * │  #  │  %  │ & ~ │ | ^ │  Č  │  [  │  ¡  │     │  │     │  ¿  │  ]  │  Ę  │  „  │  “  │  *  │  /  │
+ * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
+ *                   │     │     │     │     │     │  │     │     │     │     │     │
+ *                   │     │     │     │     │     │  │     │     │     │     │     │
+ *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
  */
-    [_LOWER] = LAYOUT(
-      _______, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                     _______, _______, _______, _______, _______, KC_BSLS,
-      _______, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,                                      KC_PLUS, KC_MINS, KC_SLSH, KC_ASTR, KC_PERC, KC_QUOT,
-      _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_AMPR, KC_EQL,  KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-                                 _______, _______, _______, KC_SCLN, KC_EQL,  KC_EQL,  KC_SCLN, _______, _______, _______
+    [_NAT] = LAYOUT(
+        LT_AT,   LT_1,    LT_2,    LT_3,    LT_4,    LT_5,                                          LT_6,    LT_7,    LT_8,    LT_9,    LT_0,    LT_EQL,
+        _______, LT_AOGO, LT_SCAR, LT_UMAC, LT_ZCAR, CK_LT,                                         CK_GT,   LT_UOGO, LT_EDOT, LT_IOGO, LT_PLUS, LT_MINS,
+        LT_HASH, LT_PERC, CK_AND,  CK_OR,   LT_CCAR, LT_LBRC, LT_IEXL, _______,   _______, LT_IQUE, LT_RBRC, LT_EOGO, LT_DQL9, LT_DQH6, LT_ASTR, LT_SLSH,
+                                   _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
     ),
 /*
- * Raise Layer: Number keys, media, navigation
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |   1  |  2   |  3   |  4   |  5   |                              |  6   |  7   |  8   |  9   |  0   |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      | Prev | Play | Next | VolUp|                              | Left | Down | Up   | Right|      |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      | Mute | VolDn|      |      |  |      |      | MLeft| Mdown| MUp  |MRight|      |        |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
-    [_RAISE] = LAYOUT(
-      _______, KC_1, 	  KC_2,    KC_3,    KC_4,    KC_5,                                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-      _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLU,                                     KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-      _______, _______, _______, _______, KC_MUTE, KC_VOLD, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+* Navigation Layer: National symbols, numbers and special characters
+*
+* ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
+* │ XXX │ XXX │ Mw↑ │ Ms↑ │ Mw↓ │ XXX │                          │ XXX │ Pg↑ │  ↑  │ Pg↓ │ XXX │ XXX │
+* ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
+* │     │ XXX │ Ms← │ Ms↓ │ Ms→ │ XXX │                          │ XXX │  ←  │  ↓  │  →  │ XXX │ XXX │
+* ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+* │     │ XXX │ XXX │ XXX │ XXX │ XXX │     │     │  │     │     │ XXX │ XXX │ XXX │ XXX │ XXX │ XXX │
+* └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
+*                   │     │     │     │ Mb1 │     │  │ Mb2 │ Mb3 │     │     │     │
+*                   │     │     │     │     │     │  │     │     │     │     │     │
+*                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
+*/
+    [_NAV] = LAYOUT(
+      XXXXXXX, XXXXXXX, KC_WH_U, KC_MS_U, KC_WH_D, XXXXXXX,                                       XXXXXXX, KC_PGUP, KC_UP,   KC_PGDN, XXXXXXX, XXXXXXX,
+      _______, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,                                       XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,   _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,
+                                 _______, _______, _______, KC_BTN1, _______,   KC_BTN2, KC_BTN3, _______, _______, _______
     ),
 /*
  * Adjust Layer: Function keys, RGB
@@ -97,26 +114,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_ADJUST] = LAYOUT(
+    [_ADJ] = LAYOUT(
       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
       _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     _______, _______, _______, KC_F11,  KC_F12,  _______,
       _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
-// /*
-//  * Layer template
-//  *
-//  * ,-------------------------------------------.                              ,-------------------------------------------.
-//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
-//  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
-//  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-//  * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
-//  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-//  *                        |      |      |      |      |      |  |      |      |      |      |      |
-//  *                        |      |      |      |      |      |  |      |      |      |      |      |
-//  *                        `----------------------------------'  `----------------------------------'
-//  */
+///*
+// * Layer:
+// *
+// * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
+// * │     │     │     │     │     │     │                          │     │     │     │     │     │     │
+// * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
+// * │     │     │     │     │     │     │                          │     │     │     │     │     │     │
+// * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+// * │     │     │     │     │     │     │     │     │  │     │     │     │     │     │     │     │     │
+// * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
+// *                   │     │     │     │     │     │  │     │     │     │     │     │
+// *                   │     │     │     │     │     │  │     │     │     │     │     │
+// *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
+// */
 //     [_LAYERINDEX] = LAYOUT(
 //       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
 //       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
@@ -125,9 +142,174 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
+uint8_t mod_state;
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    mod_state = get_mods();
+    switch (keycode) {
+        case CK_LPRN:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    register_code(LT_5);
+                } else {
+                    add_mods(MOD_MASK_SHIFT);
+                    register_code(LT_9);
+                }
+            } else {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(LT_5);
+                } else {
+                    unregister_code(LT_9);
+                    del_mods(MOD_MASK_SHIFT);
+                }
+            }
+            return false;
+        case CK_RPRN:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+                    add_mods(MOD_MASK_ALT);
+                    register_code(LT_IOGO);
+                    add_mods(MOD_MASK_SHIFT);
+                } else {
+                    add_mods(MOD_MASK_SHIFT);
+                    register_code(LT_0);
+                }
+            } else {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(LT_IOGO);
+                    del_mods(MOD_MASK_ALT);
+                } else {
+                    unregister_code(LT_0);
+                    del_mods(MOD_MASK_SHIFT);
+                }
+            }
+            return false;
+        case CK_QUES:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    register_code(LT_1);
+                } else {
+                    add_mods(MOD_MASK_SHIFT);
+                    register_code(LT_3);
+                }
+            } else {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(LT_1);
+                } else {
+                    unregister_code(LT_3);
+                    del_mods(MOD_MASK_SHIFT);
+                }
+            }
+            return false;
+        case CK_MINS:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+                    add_mods(MOD_MASK_ALT);
+                    register_code(LT_EDOT);
+                    add_mods(MOD_MASK_SHIFT);
+                } else {
+                    add_mods(MOD_MASK_SHIFT);
+                    register_code(LT_7);
+                }
+            } else {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(LT_EDOT);
+                    del_mods(MOD_MASK_ALT);
+                } else {
+                    unregister_code(LT_7);
+                    del_mods(MOD_MASK_SHIFT);
+                }
+            }
+            return false;
+        case CK_LT:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+                    add_mods(MOD_MASK_ALT);
+                    register_code(LT_UOGO);
+                    add_mods(MOD_MASK_SHIFT);
+                } else {
+                    add_mods(MOD_MASK_ALT);
+                    register_code(LT_UMAC);
+                }
+            } else {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(LT_UOGO);
+                    del_mods(MOD_MASK_ALT);
+                } else {
+                    unregister_code(LT_UMAC);
+                    del_mods(MOD_MASK_ALT);
+                }
+            }
+            return false;
+        case CK_GT:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+                    add_mods(MOD_MASK_ALT);
+                    register_code(LT_ZCAR);
+                    add_mods(MOD_MASK_SHIFT);
+                } else {
+                    add_mods(MOD_MASK_ALT);
+                    register_code(LT_EOGO);
+                }
+            } else {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(LT_ZCAR);
+                    del_mods(MOD_MASK_ALT);
+                } else {
+                    unregister_code(LT_EOGO);
+                    del_mods(MOD_MASK_ALT);
+                }
+            }
+            return false;
+        case CK_AND:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+                    add_mods(MOD_MASK_ALT);
+                    register_code(LT_AOGO);
+                    add_mods(MOD_MASK_SHIFT);
+                } else {
+                    add_mods(MOD_MASK_ALT);
+                    register_code(LT_7);
+                }
+            } else {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(LT_AOGO);
+                    del_mods(MOD_MASK_ALT);
+                } else {
+                    unregister_code(LT_7);
+                    del_mods(MOD_MASK_ALT);
+                }
+            }
+            return false;
+        case CK_OR:
+            if (record->event.pressed) {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    del_mods(MOD_MASK_SHIFT);
+                    add_mods(MOD_MASK_ALT);
+                    register_code(LT_6);
+                    add_mods(MOD_MASK_SHIFT);
+                } else {
+                    add_mods(MOD_MASK_ALT);
+                    register_code(LT_8);
+                }
+            } else {
+                if (mod_state & MOD_MASK_SHIFT) {
+                    unregister_code(LT_6);
+                    del_mods(MOD_MASK_ALT);
+                } else {
+                    unregister_code(LT_8);
+                    del_mods(MOD_MASK_ALT);
+                }
+            }
+            return false;
+        default:
+            return true;
+    }
+};
 
 #ifdef OLED_DRIVER_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -160,21 +342,21 @@ static void render_qmk_logo(void) {
 static void render_status(void) {
     // QMK Logo and version information
     render_qmk_logo();
-    oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
+    oled_write_P(PSTR("Kyria rev1.2\n\n"), false);
 
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
+        case _BASE:
             oled_write_P(PSTR("Default\n"), false);
             break;
-        case _LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
+        case _NAT:
+            oled_write_P(PSTR("Symbols\n"), false);
             break;
-        case _RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
+        case _NAV:
+            oled_write_P(PSTR("Navigation\n"), false);
             break;
-        case _ADJUST:
+        case _ADJ:
             oled_write_P(PSTR("Adjust\n"), false);
             break;
         default:
@@ -218,66 +400,49 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
+// Tapdance states
+typedef enum {
+    SINGLE_TAP,
+    SINGLE_HOLD,
+    DOUBLE_SINGLE_TAP
+} td_state_t;
 
-// REVIEW THIS !!!
-//
-//// Here's for the CA_CC_CV
-//
-//enum {
-//    CA_CC_CV = 0
-//};
-//
-//// Tap dance states
-//typedef enum {
-//    SINGLE_TAP,
-//    SINGLE_HOLD,
-//    DOUBLE_SINGLE_TAP
-//} td_state_t;
-//
-//// create a global instance of the tapdance state type
-//static td_state_t td_state;
-//
-//// function to track the current tapdance state
-//int cur_dance (qk_tap_dance_state_t *state);
-//
-//// `finished` function for each tapdance keycode
-//void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data);
-//
-//// track the tapdance state to return
-//int cur_dance (qk_tap_dance_state_t *state) {
-//    if (state->count == 1) {
-//        if (state->interrupted || !state->pressed) {
-//            return SINGLE_TAP;
-//        } else {
-//            return SINGLE_HOLD;
-//        }
-//    }
-//    if (state->count == 2) {
-//        return DOUBLE_SINGLE_TAP;
-//    }
-//    else {
-//        return 3; // any number higher than the maximum state value you return above
-//    }
-//}
-//
-//// handle the possible states for each tapdance keycode you define:
-//
-//void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
-//    td_state = cur_dance(state);
-//    switch (td_state) {
-//        case SINGLE_TAP:
-//            tap_code16(C(KC_C));
-//            break;
-//        case SINGLE_HOLD:
-//            tap_code16(C(KC_A));
-//            break;
-//        case DOUBLE_SINGLE_TAP:
-//            tap_code16(C(KC_V));
-//    }
-//}
-//
-//qk_tap_dance_action_t tap_dance_actions[] = {
-//    [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL)
-//};
-//
-//// Just add TD(CA_CC_CV) anywhere in your layout to use
+// create a global instance of the tapdance state type
+static td_state_t td_state;
+
+// track the tapdance state to return
+int cur_dance (qk_tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) {
+            return SINGLE_TAP;
+        } else {
+            return SINGLE_HOLD;
+        }
+    }
+    if (state->count == 2) {
+        return DOUBLE_SINGLE_TAP;
+    }
+    else {
+        return 3; // any number higher than the maximum state value you return above
+    }
+}
+
+// handle the possible states for each tapdance keycode you define
+void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP:
+            tap_code16(C(LT_C));
+            break;
+        case SINGLE_HOLD:
+            tap_code16(C(LT_A));
+            break;
+        case DOUBLE_SINGLE_TAP:
+            tap_code16(C(LT_V));
+    }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL)
+};
+// Just add TD(CA_CC_CV) anywhere in your layout to use

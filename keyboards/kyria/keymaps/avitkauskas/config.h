@@ -16,6 +16,9 @@
 
 #pragma once
 
+#define ONESHOT_TAP_TOGGLE 2
+#define PERMISSIVE_HOLD
+
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64
 #endif

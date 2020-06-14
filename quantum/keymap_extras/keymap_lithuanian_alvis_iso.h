@@ -154,12 +154,11 @@
 // Row 3
 #define LT_DLR  A(LT_S)    // $
 #define LT_NDSH A(LT_N)    // –
-#define LT_EURO A(LT_E)    // €
 #define LT_GRV  A(LT_QUOT) // `
 #define LT_BSLS A(LT_IOGO) // (backslash)
 // Row 4
 #define LT_TILD A(LT_AOGO) // ~
 #define LT_MDSH A(LT_M)    // —
-#define LT_DL9  A(LT_COMM) // „
-#define LT_DH6  A(LT_DOT)  // “
+#define LT_DQL9 A(LT_COMM) // „
+#define LT_DQH6 A(LT_DOT)  // “
 #define LT_UNDS A(LT_EDOT) // _
