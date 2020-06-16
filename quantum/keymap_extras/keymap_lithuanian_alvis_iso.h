@@ -24,9 +24,9 @@
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
  * │ Č │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ Ū │ Ę │       │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
- * │     │ Q │ W │ F │ P │ G │ J │ L │ U │ Y │ Š │ Ų │ Ž │     │
+ * │     │ Q │ W │ D │ P │ F │ J │ L │ U │ Y │ Š │ Ų │ Ž │     │
  * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
- * │      │ A │ S │ R │ T │ D │ K │ N │ E │ I │ O │ ' │ Į │    │
+ * │      │ A │ S │ R │ T │ G │ K │ N │ E │ I │ O │ ' │ Į │    │
  * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
  * │    │ Ą │ Z │ X │ C │ V │ B │ M │ H │ , │ . │ Ė │          │
  * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
@@ -50,9 +50,9 @@
 // Row 2
 #define LT_Q    KC_Q    // Q
 #define LT_W    KC_W    // W
-#define LT_F    KC_E    // F
+#define LT_D    KC_E    // F
 #define LT_P    KC_R    // P
-#define LT_G    KC_T    // G
+#define LT_F    KC_T    // G
 #define LT_J    KC_Y    // J
 #define LT_L    KC_U    // L
 #define LT_U    KC_I    // U
@@ -65,7 +65,7 @@
 #define LT_S    KC_S    // S
 #define LT_R    KC_D    // R
 #define LT_T    KC_F    // T
-#define LT_D    KC_G    // D
+#define LT_G    KC_G    // D
 #define LT_K    KC_H    // K
 #define LT_N    KC_J    // N
 #define LT_E    KC_K    // E

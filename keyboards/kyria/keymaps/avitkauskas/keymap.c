@@ -55,16 +55,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
  */
     [_BASE] = LAYOUT(
-      KC_ESC,       LT_Q, LT_W, LT_F, LT_P, LT_G,                                       LT_J, LT_L, LT_U,    LT_Y,   CK_LPRN, CK_RPRN,
-      KC_BSPC,      LT_A, LT_S, LT_R, LT_T, LT_D,                                       LT_K, LT_N, LT_E,    LT_I,   LT_O,    LT_QUOT,
-      TD(CA_CC_CV), LT_Z, LT_X, LT_C, LT_V, LT_B, KC_LALT, KC_LCTL,   KC_LCTL, KC_LALT, LT_M, LT_H, LT_COMM, LT_DOT, CK_QUES, CK_MINS,
-               TG(_ADJ), KC_LGUI, OSL(_NAT), OSM(MOD_LSFT), KC_TAB,   KC_ENT, SFT_T(KC_SPC), OSL(_NAT), KC_LGUI, TG(_NAV)
+      KC_ESC,       LT_Q, LT_W, LT_F, LT_P, LT_G,                                                               LT_J, LT_L, LT_U,    LT_Y,   CK_LPRN, CK_RPRN,
+      KC_BSPC,      LT_A, LT_S, LT_R, LT_T, LT_D,                                                               LT_K, LT_N, LT_E,    LT_I,   LT_O,    LT_QUOT,
+      TD(CA_CC_CV), LT_Z, LT_X, LT_C, LT_V, LT_B, OSM(MOD_LALT), OSM(MOD_LCTL),   OSM(MOD_LCTL), OSM(MOD_LALT), LT_M, LT_H, LT_COMM, LT_DOT, CK_QUES, CK_MINS,
+                     TG(_ADJ), OSM(MOD_LGUI), OSL(_NAT), OSM(MOD_LSFT), KC_TAB,   KC_ENT, SFT_T(KC_SPC), OSL(_NAT), OSM(MOD_LGUI), TG(_NAV)
     ),
 /*
  * National Layer: National symbols, numbers and special characters
  *
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
- * │  @  │  1  │  2  │  3  │  4  │  5  │                          │  6  │  7  │  8  │  9  │  0  │  =  │
+ * │  @  │  1  │  3  │  5  │  7  │  9  │                          │  2  │  4  │  6  │  8  │  0  │  =  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
  * │     │  Ą  │  Š  │  Ū  │  Ž  │ < { │                          │ > } │  Ų  │  Ė  │  Į  │  +  │  -  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
  */
     [_NAT] = LAYOUT(
-        LT_AT,   LT_1,    LT_2,    LT_3,    LT_4,    LT_5,                                          LT_6,    LT_7,    LT_8,    LT_9,    LT_0,    LT_EQL,
+        LT_AT,   LT_1,    LT_3,    LT_5,    LT_7,    LT_9,                                          LT_2,    LT_4,    LT_6,    LT_8,    LT_0,    LT_EQL,
         _______, LT_AOGO, LT_SCAR, LT_UMAC, LT_ZCAR, CK_LT,                                         CK_GT,   LT_UOGO, LT_EDOT, LT_IOGO, LT_PLUS, LT_MINS,
         LT_HASH, LT_PERC, CK_AND,  CK_OR,   LT_CCAR, LT_LBRC, LT_IEXL, _______,   _______, LT_IQUE, LT_RBRC, LT_EOGO, LT_DQL9, LT_DQH6, LT_ASTR, LT_SLSH,
                                    _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
