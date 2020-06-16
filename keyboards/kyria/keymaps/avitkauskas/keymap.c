@@ -44,9 +44,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Base Layer: Modified Colemak
  *
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
- * │ Esc │  Q  │  W  │  F  │  P  │  G  │                          │  J  │  L  │  U  │  Y  │ ( / │ ) \ │
+ * │ Esc │  Q  │  W  │  D  │  P  │  F  │                          │  J  │  L  │  U  │  Y  │ ( / │ ) \ │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │ BS  │  A  │  S  │  R  │  T  │  D  │                          │  K  │  N  │  E  │  I  │  O  │ ' " │
+ * │ BS  │  A  │  S  │  R  │  T  │  G  │                          │  K  │  N  │  E  │  I  │  O  │ ' " │
  * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
  * │A/C/P│  Z  │  X  │  C  │  V  │  B  │ Alt │Ctrl │  │Ctrl │ Alt │  M  │  H  │ , ; │ . : │ ? ! │ - _ │
  * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
@@ -55,8 +55,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
  */
     [_BASE] = LAYOUT(
-      KC_ESC,       LT_Q, LT_W, LT_F, LT_P, LT_G,                                                               LT_J, LT_L, LT_U,    LT_Y,   CK_LPRN, CK_RPRN,
-      KC_BSPC,      LT_A, LT_S, LT_R, LT_T, LT_D,                                                               LT_K, LT_N, LT_E,    LT_I,   LT_O,    LT_QUOT,
+      KC_ESC,       LT_Q, LT_W, LT_D, LT_P, LT_F,                                                               LT_J, LT_L, LT_U,    LT_Y,   CK_LPRN, CK_RPRN,
+      KC_BSPC,      LT_A, LT_S, LT_R, LT_T, LT_G,                                                               LT_K, LT_N, LT_E,    LT_I,   LT_O,    LT_QUOT,
       TD(CA_CC_CV), LT_Z, LT_X, LT_C, LT_V, LT_B, OSM(MOD_LALT), OSM(MOD_LCTL),   OSM(MOD_LCTL), OSM(MOD_LALT), LT_M, LT_H, LT_COMM, LT_DOT, CK_QUES, CK_MINS,
                      TG(_ADJ), OSM(MOD_LGUI), OSL(_NAT), OSM(MOD_LSFT), KC_TAB,   KC_ENT, SFT_T(KC_SPC), OSL(_NAT), OSM(MOD_LGUI), TG(_NAV)
     ),
