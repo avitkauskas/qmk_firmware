@@ -50,55 +50,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
  * │A/C/P│  Z  │  X  │  C  │  V  │  B  │ Alt │Ctrl │  │Ctrl │ Alt │  M  │  H  │ , ; │ . : │ ? ! │ - _ │
  * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
- *                   │ Adj │ Cmd │     │CLock│ Tab │  │Enter│Space│     │ Cmd │ Nav │
- *                   │     │     │ Nat │Shift│     │  │     │Shift│ Nat │     │     │
+ *                   │ Adj │ Cmd │ Nat │CLock│ Tab │  │Enter│ Nav │Space│ Cmd │     │
+ *                   │     │     │     │Shift│     │  │     │     │     │     │     │
  *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
  */
     [_BASE] = LAYOUT(
       KC_ESC,       LT_Q, LT_W, LT_D, LT_P, LT_F,                                                               LT_J, LT_L, LT_U,    LT_Y,   CK_LPRN, CK_RPRN,
       KC_BSPC,      LT_A, LT_S, LT_R, LT_T, LT_G,                                                               LT_K, LT_N, LT_E,    LT_I,   LT_O,    LT_QUOT,
       TD(CA_CC_CV), LT_Z, LT_X, LT_C, LT_V, LT_B, OSM(MOD_LALT), OSM(MOD_LCTL),   OSM(MOD_LCTL), OSM(MOD_LALT), LT_M, LT_H, LT_COMM, LT_DOT, CK_QUES, CK_MINS,
-                     TG(_ADJ), OSM(MOD_LGUI), OSL(_NAT), OSM(MOD_LSFT), KC_TAB,   KC_ENT, SFT_T(KC_SPC), OSL(_NAT), OSM(MOD_LGUI), TG(_NAV)
+                     TG(_ADJ), OSM(MOD_LGUI), OSL(_NAT), OSM(MOD_LSFT), KC_TAB,   KC_ENT, TG(_NAV), KC_SPC, OSM(MOD_LGUI), TG(_NAV)
     ),
 /*
  * National Layer: National symbols, numbers and special characters
  *
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
- * │  @  │  1  │  3  │  5  │  7  │  9  │                          │  2  │  4  │  6  │  8  │  0  │  =  │
+ * │  @  │  1  │  3  │  5  │  7  │  9  │                          │  0  │  2  │  4  │  6  │  8  │  =  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
  * │     │  Ą  │  Š  │  Ū  │  Ž  │ < { │                          │ > } │  Ų  │  Ė  │  Į  │  +  │  -  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- * │  #  │  %  │ & ~ │ | ^ │  Č  │  [  │  ¡  │     │  │     │  ¿  │  ]  │  Ę  │  „  │  “  │  *  │  /  │
+ * │  #  │  %  │ & ~ │ | ^ │  Č  │  [  │  ¡  │  „  │  │  “  │  ¿  │  ]  │  Ę  │     │     │  *  │  /  │
  * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
  *                   │     │     │     │     │     │  │     │     │     │     │     │
  *                   │     │     │     │     │     │  │     │     │     │     │     │
  *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
  */
     [_NAT] = LAYOUT(
-        LT_AT,   LT_1,    LT_3,    LT_5,    LT_7,    LT_9,                                          LT_2,    LT_4,    LT_6,    LT_8,    LT_0,    LT_EQL,
+        LT_AT,   LT_1,    LT_3,    LT_5,    LT_7,    LT_9,                                          LT_0,    LT_2,    LT_4,    LT_6,    LT_8,    LT_EQL,
         _______, LT_AOGO, LT_SCAR, LT_UMAC, LT_ZCAR, CK_LT,                                         CK_GT,   LT_UOGO, LT_EDOT, LT_IOGO, LT_PLUS, LT_MINS,
-        LT_HASH, LT_PERC, CK_AND,  CK_OR,   LT_CCAR, LT_LBRC, LT_IEXL, _______,   _______, LT_IQUE, LT_RBRC, LT_EOGO, LT_DQL9, LT_DQH6, LT_ASTR, LT_SLSH,
+        LT_HASH, LT_PERC, CK_AND,  CK_OR,   LT_CCAR, LT_LBRC, LT_IEXL, LT_DQL9,   LT_DQH6, LT_IQUE, LT_RBRC, LT_EOGO, _______, _______, LT_ASTR, LT_SLSH,
                                    _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
     ),
 /*
-* Navigation Layer: National symbols, numbers and special characters
+* Navigation Layer: Mouse control and arrows
 *
 * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
-* │ XXX │ XXX │ Mw↑ │ Ms↑ │ Mw↓ │ XXX │                          │ XXX │ Pg↑ │  ↑  │ Pg↓ │ XXX │ XXX │
+* │     │ XXX │ XXX │ Mw↑ │ Mw↓ │ XXX │                          │ XXX │ Pg↓ │ Pg↑ │ XXX │ XXX │ XXX │
 * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
-* │     │ XXX │ Ms← │ Ms↓ │ Ms→ │ XXX │                          │ XXX │  ←  │  ↓  │  →  │ XXX │ XXX │
+* │     │ Ms← │ Ms↑ │ Ms↓ │ Ms→ │ XXX │                          │  ←  │  ↓  │  ↑  │  →  │ XXX │ XXX │
 * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 * │     │ XXX │ XXX │ XXX │ XXX │ XXX │     │     │  │     │     │ XXX │ XXX │ XXX │ XXX │ XXX │ XXX │
 * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
-*                   │     │     │     │ Mb1 │     │  │ Mb2 │ Mb3 │     │     │     │
+*                   │     │     │ Mb1 │     │     │  │     │     │ Mb2 │ Mb3 │     │
 *                   │     │     │     │     │     │  │     │     │     │     │     │
 *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
 */
     [_NAV] = LAYOUT(
-      XXXXXXX, XXXXXXX, KC_WH_U, KC_MS_U, KC_WH_D, XXXXXXX,                                       XXXXXXX, KC_PGUP, KC_UP,   KC_PGDN, XXXXXXX, XXXXXXX,
-      _______, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,                                       XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,   _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,
-                                 _______, _______, _______, KC_BTN1, _______,   KC_BTN2, KC_BTN3, _______, _______, _______
+      _______, XXXXXXX, XXXXXXX, KC_WH_D, KC_WH_U, XXXXXXX,                                       XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX,
+      _______, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, XXXXXXX,                                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,   _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                 _______, _______, KC_BTN1, _______, _______,   _______, _______, KC_BTN2, KC_BTN3, _______
     ),
 /*
  * Adjust Layer: Function keys, RGB
@@ -151,15 +151,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     register_code(LT_5);
                 } else {
-                    add_mods(MOD_MASK_SHIFT);
-                    register_code(LT_9);
+//                    add_mods(MOD_MASK_SHIFT);
+                    register_code16(S(LT_9));
+//                    del_mods(MOD_MASK_SHIFT);
                 }
             } else {
                 if (mod_state & MOD_MASK_SHIFT) {
                     unregister_code(LT_5);
                 } else {
-                    unregister_code(LT_9);
-                    del_mods(MOD_MASK_SHIFT);
+                    unregister_code16(S(LT_9));
                 }
             }
             return false;
@@ -167,20 +167,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     del_mods(MOD_MASK_SHIFT);
-                    add_mods(MOD_MASK_ALT);
-                    register_code(LT_IOGO);
-                    add_mods(MOD_MASK_SHIFT);
+//                    add_mods(MOD_MASK_ALT);
+                    register_code16(A(LT_IOGO));
+//                    del_mods(MOD_MASK_ALT);
+//                    add_mods(MOD_MASK_SHIFT);
                 } else {
-                    add_mods(MOD_MASK_SHIFT);
-                    register_code(LT_0);
+//                    add_mods(MOD_MASK_SHIFT);
+                    register_code16(S(LT_0));
+//                    del_mods(MOD_MASK_SHIFT);
                 }
             } else {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(LT_IOGO);
-                    del_mods(MOD_MASK_ALT);
+                    unregister_code16(A(LT_IOGO));
                 } else {
-                    unregister_code(LT_0);
-                    del_mods(MOD_MASK_SHIFT);
+                    unregister_code16(S(LT_0));
                 }
             }
             return false;
@@ -189,15 +189,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (mod_state & MOD_MASK_SHIFT) {
                     register_code(LT_1);
                 } else {
-                    add_mods(MOD_MASK_SHIFT);
-                    register_code(LT_3);
+                    register_code16(S(LT_3));
                 }
             } else {
                 if (mod_state & MOD_MASK_SHIFT) {
                     unregister_code(LT_1);
                 } else {
-                    unregister_code(LT_3);
-                    del_mods(MOD_MASK_SHIFT);
+                    unregister_code16(S(LT_3));
                 }
             }
             return false;
@@ -207,18 +205,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     del_mods(MOD_MASK_SHIFT);
                     add_mods(MOD_MASK_ALT);
                     register_code(LT_EDOT);
+                    del_mods(MOD_MASK_ALT);
                     add_mods(MOD_MASK_SHIFT);
                 } else {
                     add_mods(MOD_MASK_SHIFT);
                     register_code(LT_7);
+                    del_mods(MOD_MASK_SHIFT);
                 }
             } else {
                 if (mod_state & MOD_MASK_SHIFT) {
                     unregister_code(LT_EDOT);
-                    del_mods(MOD_MASK_ALT);
                 } else {
                     unregister_code(LT_7);
-                    del_mods(MOD_MASK_SHIFT);
                 }
             }
             return false;
@@ -228,18 +226,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     del_mods(MOD_MASK_SHIFT);
                     add_mods(MOD_MASK_ALT);
                     register_code(LT_UOGO);
+                    del_mods(MOD_MASK_ALT);
                     add_mods(MOD_MASK_SHIFT);
                 } else {
                     add_mods(MOD_MASK_ALT);
                     register_code(LT_UMAC);
+                    del_mods(MOD_MASK_ALT);
                 }
             } else {
                 if (mod_state & MOD_MASK_SHIFT) {
                     unregister_code(LT_UOGO);
-                    del_mods(MOD_MASK_ALT);
                 } else {
                     unregister_code(LT_UMAC);
-                    del_mods(MOD_MASK_ALT);
                 }
             }
             return false;
@@ -249,18 +247,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     del_mods(MOD_MASK_SHIFT);
                     add_mods(MOD_MASK_ALT);
                     register_code(LT_ZCAR);
+                    del_mods(MOD_MASK_ALT);
                     add_mods(MOD_MASK_SHIFT);
                 } else {
                     add_mods(MOD_MASK_ALT);
                     register_code(LT_EOGO);
+                    del_mods(MOD_MASK_ALT);
                 }
             } else {
                 if (mod_state & MOD_MASK_SHIFT) {
                     unregister_code(LT_ZCAR);
-                    del_mods(MOD_MASK_ALT);
                 } else {
                     unregister_code(LT_EOGO);
-                    del_mods(MOD_MASK_ALT);
                 }
             }
             return false;
@@ -270,18 +268,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     del_mods(MOD_MASK_SHIFT);
                     add_mods(MOD_MASK_ALT);
                     register_code(LT_AOGO);
+                    del_mods(MOD_MASK_ALT);
                     add_mods(MOD_MASK_SHIFT);
                 } else {
                     add_mods(MOD_MASK_ALT);
                     register_code(LT_7);
+                    del_mods(MOD_MASK_ALT);
                 }
             } else {
                 if (mod_state & MOD_MASK_SHIFT) {
                     unregister_code(LT_AOGO);
-                    del_mods(MOD_MASK_ALT);
                 } else {
                     unregister_code(LT_7);
-                    del_mods(MOD_MASK_ALT);
                 }
             }
             return false;
@@ -291,18 +289,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     del_mods(MOD_MASK_SHIFT);
                     add_mods(MOD_MASK_ALT);
                     register_code(LT_6);
+                    del_mods(MOD_MASK_ALT);
                     add_mods(MOD_MASK_SHIFT);
                 } else {
                     add_mods(MOD_MASK_ALT);
                     register_code(LT_8);
+                    del_mods(MOD_MASK_ALT);
                 }
             } else {
                 if (mod_state & MOD_MASK_SHIFT) {
                     unregister_code(LT_6);
-                    del_mods(MOD_MASK_ALT);
                 } else {
                     unregister_code(LT_8);
-                    del_mods(MOD_MASK_ALT);
                 }
             }
             return false;
@@ -384,17 +382,17 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
         if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
             tap_code(KC_VOLD);
+        } else {
+            tap_code(KC_VOLU);
         }
     }
     else if (index == 1) {
         // Page up/Page down
         if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
             tap_code(KC_PGUP);
+        } else {
+            tap_code(KC_PGDN);
         }
     }
 }
@@ -432,13 +430,13 @@ void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            tap_code16(C(LT_C));
+            tap_code16(G(LT_C));
             break;
         case SINGLE_HOLD:
-            tap_code16(C(LT_A));
+            tap_code16(G(LT_A));
             break;
         case DOUBLE_SINGLE_TAP:
-            tap_code16(C(LT_V));
+            tap_code16(G(LT_V));
     }
 }
 

@@ -34,7 +34,7 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
 // Row 1
-#define LT_CCAR KC_GRV  // Č
+#define LT_CCAR KC_NUBS // Č
 #define LT_1    KC_1    // 1
 #define LT_2    KC_2    // 2
 #define LT_3    KC_3    // 3
@@ -74,7 +74,7 @@
 #define LT_QUOT KC_QUOT // '
 #define LT_IOGO KC_NUHS // Į
 // Row 4
-#define LT_AOGO KC_NUBS // Ą
+#define LT_AOGO KC_GRV  // Ą
 #define LT_Z    KC_Z    // Z
 #define LT_X    KC_X    // X
 #define LT_C    KC_C    // C
