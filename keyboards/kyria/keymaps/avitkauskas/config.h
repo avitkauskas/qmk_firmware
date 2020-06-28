@@ -17,7 +17,14 @@
 #pragma once
 
 #define ONESHOT_TAP_TOGGLE 2
+#define TAPPING_TOGGLE 1
+#define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
+
+#ifdef ENCODER_ENABLE
+  #define ENCODER_DIRECTION_FLIP
+  #define ENCODER_RESOLUTION 2
+#endif
 
 #ifdef OLED_DRIVER_ENABLE
   #define OLED_DISPLAY_128X64

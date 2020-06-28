@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include <string.h>
 #include "keymap_lithuanian_alvis_iso.h"
 
 enum layers {
@@ -24,14 +25,14 @@ enum layers {
 };
 
 enum custom_keycodes {
-    CK_LPRN = SAFE_RANGE,
-    CK_RPRN,
-    CK_QUES,
-    CK_MINS,
-    CK_LT,
-    CK_GT,
-    CK_AND,
-    CK_OR
+    MY_LPRN = SAFE_RANGE,
+    MY_RPRN,
+    MY_QUES,
+    MY_MINS,
+    MY_LCBR,
+    MY_RCBR,
+    MY_LBRC,
+    MY_RBRC
 };
 
 // For the CA_CC_CV (Select all, copy, paste)
@@ -40,44 +41,45 @@ enum {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*
- * Base Layer: Modified Colemak
- *
- * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
- * │ Esc │  Q  │  W  │  D  │  P  │  F  │                          │  J  │  L  │  U  │  Y  │ ( / │ ) \ │
- * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │ BS  │  A  │  S  │  R  │  T  │  G  │                          │  K  │  N  │  E  │  I  │  O  │ ' " │
- * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- * │A/C/P│  Z  │  X  │  C  │  V  │  B  │ Alt │Ctrl │  │Ctrl │ Alt │  M  │  H  │ , ; │ . : │ ? ! │ - _ │
- * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
- *                   │ Adj │ Cmd │ Nat │CLock│ Tab │  │Enter│ Nav │Space│ Cmd │     │
- *                   │     │     │     │Shift│     │  │     │     │     │     │     │
- *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
- */
+    /*
+     * Base Layer: Modified Colemak
+     *
+     * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
+     * │ Esc │  Q  │  W  │  D  │  P  │  F  │                          │  J  │  L  │  U  │  Y  │ ( / │ ) \ │
+     * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
+     * │ BS  │  A  │  S  │  R  │  T  │  G  │                          │  K  │  N  │  E  │  I  │  O  │ ' " │
+     * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+     * │A/C/P│  Z  │  X  │  C  │  V  │  B  │  {  │  [  │  │  ]  │  }  │  M  │  H  │ , ; │ . : │ ? ! │ - _ │
+     * │     │     │     │     │     │     │ Alt │Ctrl │  │Ctrl │ Alt │     │     │     │     │     │     │
+     * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
+     *                   │ Adj │ Cmd │ Nat │CLock│ Tab │  │Enter│ Nav │Space│ Cmd │     │
+     *                   │     │     │     │Shift│     │  │     │     │     │     │     │
+     *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
+     */
     [_BASE] = LAYOUT(
-      KC_ESC,       LT_Q, LT_W, LT_D, LT_P, LT_F,                                                               LT_J, LT_L, LT_U,    LT_Y,   CK_LPRN, CK_RPRN,
-      KC_BSPC,      LT_A, LT_S, LT_R, LT_T, LT_G,                                                               LT_K, LT_N, LT_E,    LT_I,   LT_O,    LT_QUOT,
-      TD(CA_CC_CV), LT_Z, LT_X, LT_C, LT_V, LT_B, OSM(MOD_LALT), OSM(MOD_LCTL),   OSM(MOD_LCTL), OSM(MOD_LALT), LT_M, LT_H, LT_COMM, LT_DOT, CK_QUES, CK_MINS,
-                     TG(_ADJ), OSM(MOD_LGUI), OSL(_NAT), OSM(MOD_LSFT), KC_TAB,   KC_ENT, TG(_NAV), KC_SPC, OSM(MOD_LGUI), TG(_NAV)
+      KC_ESC,       LT_Q, LT_W, LT_D, LT_P, LT_F,                                       LT_J, LT_L, LT_U,    LT_Y,   MY_LPRN, MY_RPRN,
+      KC_BSPC,      LT_A, LT_S, LT_R, LT_T, LT_G,                                       LT_K, LT_N, LT_E,    LT_I,   LT_O,    LT_QUOT,
+      TD(CA_CC_CV), LT_Z, LT_X, LT_C, LT_V, LT_B, MY_LCBR, MY_LBRC,   MY_RBRC, MY_RCBR, LT_M, LT_H, LT_COMM, LT_DOT, MY_QUES, MY_MINS,
+         TG(_ADJ), OSM(MOD_LGUI), OSL(_NAT), OSM(MOD_LSFT), KC_TAB,   KC_ENT, TT(_NAV), KC_SPC, OSM(MOD_LGUI), G(KC_UP)
     ),
 /*
  * National Layer: National symbols, numbers and special characters
  *
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
- * │  @  │  1  │  3  │  5  │  7  │  9  │                          │  0  │  2  │  4  │  6  │  8  │  =  │
+ * │  @  │  1  │  2  │  3  │  4  │  5  │                          │  6  │  7  │  8  │  9  │  0  │  =  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │     │  Ą  │  Š  │  Ū  │  Ž  │ < { │                          │ > } │  Ų  │  Ė  │  Į  │  +  │  -  │
+ * │     │  Ą  │  Š  │  Ū  │  Ž  │  <  │                          │  >  │  Ų  │  Ė  │  Į  │  +  │  -  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- * │  #  │  %  │ & ~ │ | ^ │  Č  │  [  │  ¡  │  „  │  │  “  │  ¿  │  ]  │  Ę  │     │     │  *  │  /  │
+ * │  #  │  %  │  ~  │  ^  │  Č  │  &  │  ¡  │  „  │  │  “  │  ¿  │  |  │  Ę  │     │     │  *  │  /  │
  * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
  *                   │     │     │     │     │     │  │     │     │     │     │     │
  *                   │     │     │     │     │     │  │     │     │     │     │     │
  *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
  */
     [_NAT] = LAYOUT(
-        LT_AT,   LT_1,    LT_3,    LT_5,    LT_7,    LT_9,                                          LT_0,    LT_2,    LT_4,    LT_6,    LT_8,    LT_EQL,
-        _______, LT_AOGO, LT_SCAR, LT_UMAC, LT_ZCAR, CK_LT,                                         CK_GT,   LT_UOGO, LT_EDOT, LT_IOGO, LT_PLUS, LT_MINS,
-        LT_HASH, LT_PERC, CK_AND,  CK_OR,   LT_CCAR, LT_LBRC, LT_IEXL, LT_DQL9,   LT_DQH6, LT_IQUE, LT_RBRC, LT_EOGO, _______, _______, LT_ASTR, LT_SLSH,
+        LT_AT,   LT_1,    LT_2,    LT_3,    LT_4,    LT_5,                                          LT_6,    LT_7,    LT_8,    LT_9,    LT_0,    LT_EQL,
+        _______, LT_AOGO, LT_SCAR, LT_UMAC, LT_ZCAR, LT_LABK,                                       LT_RABK, LT_UOGO, LT_EDOT, LT_IOGO, LT_PLUS, LT_MINS,
+        LT_HASH, LT_PERC, LT_TILD, LT_CIRC, LT_CCAR, LT_AMPR, LT_IEXL, LT_DQL9,   LT_DQH6, LT_IQUE, LT_PIPE, LT_EOGO, _______, _______, LT_ASTR, LT_SLSH,
                                    _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
     ),
 /*
@@ -86,19 +88,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
 * │     │ XXX │ XXX │ Mw↑ │ Mw↓ │ XXX │                          │ XXX │ Pg↓ │ Pg↑ │ XXX │ XXX │ XXX │
 * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
-* │     │ Ms← │ Ms↑ │ Ms↓ │ Ms→ │ XXX │                          │  ←  │  ↓  │  ↑  │  →  │ XXX │ XXX │
+* │     │ XXX │ Ms← │ Ms↑ │ Ms→ │ XXX │                          │ XXX │  ←  │  ↑  │  →  │ XXX │ XXX │
 * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-* │     │ XXX │ XXX │ XXX │ XXX │ XXX │     │     │  │     │     │ XXX │ XXX │ XXX │ XXX │ XXX │ XXX │
+* │     │ XXX │ XXX │ Ms↓ │ XXX │ XXX │ Mb1 │ Mb3 │  │ Mb2 │ Mb1 │ XXX │ XXX │  ↓  │ XXX │ XXX │ XXX │
 * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
-*                   │     │     │ Mb1 │     │     │  │     │     │ Mb2 │ Mb3 │     │
+*                   │     │     │ Alt │     │     │  │     │     │     │Ctrl │     │
 *                   │     │     │     │     │     │  │     │     │     │     │     │
 *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
 */
     [_NAV] = LAYOUT(
       _______, XXXXXXX, XXXXXXX, KC_WH_D, KC_WH_U, XXXXXXX,                                       XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX,
-      _______, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, XXXXXXX,                                       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,   _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                 _______, _______, KC_BTN1, _______, _______,   _______, _______, KC_BTN2, KC_BTN3, _______
+      _______, XXXXXXX, KC_MS_L, KC_MS_U, KC_MS_R, XXXXXXX,                                       XXXXXXX, KC_LEFT, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
+      _______, XXXXXXX, XXXXXXX, KC_MS_D, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN3,   KC_BTN2, KC_BTN1, XXXXXXX, XXXXXXX, KC_DOWN, XXXXXXX, XXXXXXX, XXXXXXX,
+                           _______, _______, OSM(MOD_LALT), _______, _______,   _______, _______, _______, OSM(MOD_LCTL), _______
     ),
 /*
  * Adjust Layer: Function keys, RGB
@@ -142,165 +144,137 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
-uint8_t mod_state;
+static bool shift_pressed = false;
+static uint16_t my_hash_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    mod_state = get_mods();
+    uint8_t mods = get_mods();
+    uint8_t one_shot_mods = get_oneshot_mods();
+    bool shift_mode = mods & MOD_MASK_SHIFT;
+    bool oneshot_shift_mode = one_shot_mods & MOD_MASK_SHIFT;
+    bool any_shift_mode = shift_mode | oneshot_shift_mode;
+
     switch (keycode) {
-        case CK_LPRN:
+        case MY_LPRN:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
+                shift_pressed = any_shift_mode;
+                if (shift_pressed) {
                     register_code(LT_5);
                 } else {
-//                    add_mods(MOD_MASK_SHIFT);
-                    register_code16(S(LT_9));
-//                    del_mods(MOD_MASK_SHIFT);
+                    register_code16(LT_LPRN);
                 }
             } else {
-                if (mod_state & MOD_MASK_SHIFT) {
+                if (shift_pressed) {
                     unregister_code(LT_5);
                 } else {
-                    unregister_code16(S(LT_9));
+                    unregister_code16(LT_LPRN);
                 }
             }
             return false;
-        case CK_RPRN:
+        case MY_RPRN:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-//                    add_mods(MOD_MASK_ALT);
-                    register_code16(A(LT_IOGO));
-//                    del_mods(MOD_MASK_ALT);
-//                    add_mods(MOD_MASK_SHIFT);
+                shift_pressed = any_shift_mode;
+                if (shift_pressed) {
+                    if (shift_mode) {
+                        clear_mods();
+                        register_code16(LT_BSLS);
+                        set_mods(mods);
+                    } else {
+                        clear_oneshot_mods();
+                        register_code16(LT_BSLS);
+                        set_oneshot_mods(one_shot_mods & (!MOD_MASK_SHIFT));
+                    }
                 } else {
-//                    add_mods(MOD_MASK_SHIFT);
-                    register_code16(S(LT_0));
-//                    del_mods(MOD_MASK_SHIFT);
+                    register_code16(LT_RPRN);
                 }
             } else {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code16(A(LT_IOGO));
+                if (shift_pressed) {
+                    unregister_code16(LT_BSLS);
                 } else {
-                    unregister_code16(S(LT_0));
+                    unregister_code16(LT_RPRN);
                 }
             }
             return false;
-        case CK_QUES:
+        case MY_QUES:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
+                shift_pressed = any_shift_mode;
+                if (shift_pressed) {
                     register_code(LT_1);
                 } else {
-                    register_code16(S(LT_3));
+                    register_code16(LT_QUES);
                 }
             } else {
-                if (mod_state & MOD_MASK_SHIFT) {
+                if (shift_pressed) {
                     unregister_code(LT_1);
                 } else {
-                    unregister_code16(S(LT_3));
+                    unregister_code16(LT_QUES);
                 }
             }
             return false;
-        case CK_MINS:
+        case MY_MINS:
             if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    add_mods(MOD_MASK_ALT);
-                    register_code(LT_EDOT);
-                    del_mods(MOD_MASK_ALT);
-                    add_mods(MOD_MASK_SHIFT);
+                shift_pressed = any_shift_mode;
+                if (shift_pressed) {
+                    if (shift_mode) {
+                        clear_mods();
+                        register_code16(LT_UNDS);
+                        set_mods(mods);
+                    } else {
+                        clear_oneshot_mods();
+                        register_code16(LT_UNDS);
+                        set_oneshot_mods(one_shot_mods & (!MOD_MASK_SHIFT));
+                    }
                 } else {
-                    add_mods(MOD_MASK_SHIFT);
-                    register_code(LT_7);
-                    del_mods(MOD_MASK_SHIFT);
+                    register_code16(LT_MINS);
                 }
             } else {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(LT_EDOT);
+                if (shift_pressed) {
+                    unregister_code16(LT_UNDS);
                 } else {
-                    unregister_code(LT_7);
+                    unregister_code16(LT_MINS);
                 }
             }
             return false;
-        case CK_LT:
-            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    add_mods(MOD_MASK_ALT);
-                    register_code(LT_UOGO);
-                    del_mods(MOD_MASK_ALT);
-                    add_mods(MOD_MASK_SHIFT);
-                } else {
-                    add_mods(MOD_MASK_ALT);
-                    register_code(LT_UMAC);
-                    del_mods(MOD_MASK_ALT);
-                }
+        case MY_LCBR:
+            if(record->event.pressed) {
+                my_hash_timer = timer_read();
+                register_code(KC_LALT);
             } else {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(LT_UOGO);
-                } else {
-                    unregister_code(LT_UMAC);
+                unregister_code(KC_LALT);
+                if (timer_elapsed(my_hash_timer) < TAPPING_TERM) {
+                    tap_code16(LT_LCBR);
                 }
             }
             return false;
-        case CK_GT:
-            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    add_mods(MOD_MASK_ALT);
-                    register_code(LT_ZCAR);
-                    del_mods(MOD_MASK_ALT);
-                    add_mods(MOD_MASK_SHIFT);
-                } else {
-                    add_mods(MOD_MASK_ALT);
-                    register_code(LT_EOGO);
-                    del_mods(MOD_MASK_ALT);
-                }
+        case MY_RCBR:
+            if(record->event.pressed) {
+                my_hash_timer = timer_read();
+                register_code(KC_LALT);
             } else {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(LT_ZCAR);
-                } else {
-                    unregister_code(LT_EOGO);
+                unregister_code(KC_LALT);
+                if (timer_elapsed(my_hash_timer) < TAPPING_TERM) {
+                    tap_code16(LT_RCBR);
                 }
             }
             return false;
-        case CK_AND:
-            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    add_mods(MOD_MASK_ALT);
-                    register_code(LT_AOGO);
-                    del_mods(MOD_MASK_ALT);
-                    add_mods(MOD_MASK_SHIFT);
-                } else {
-                    add_mods(MOD_MASK_ALT);
-                    register_code(LT_7);
-                    del_mods(MOD_MASK_ALT);
-                }
+        case MY_LBRC:
+            if(record->event.pressed) {
+                my_hash_timer = timer_read();
+                register_code(KC_LCTL);
             } else {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(LT_AOGO);
-                } else {
-                    unregister_code(LT_7);
+                unregister_code(KC_LCTL);
+                if (timer_elapsed(my_hash_timer) < TAPPING_TERM) {
+                    tap_code16(LT_LBRC);
                 }
             }
             return false;
-        case CK_OR:
-            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    del_mods(MOD_MASK_SHIFT);
-                    add_mods(MOD_MASK_ALT);
-                    register_code(LT_6);
-                    del_mods(MOD_MASK_ALT);
-                    add_mods(MOD_MASK_SHIFT);
-                } else {
-                    add_mods(MOD_MASK_ALT);
-                    register_code(LT_8);
-                    del_mods(MOD_MASK_ALT);
-                }
+        case MY_RBRC:
+            if(record->event.pressed) {
+                my_hash_timer = timer_read();
+                register_code(KC_LCTL);
             } else {
-                if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(LT_6);
-                } else {
-                    unregister_code(LT_8);
+                unregister_code(KC_LCTL);
+                if (timer_elapsed(my_hash_timer) < TAPPING_TERM) {
+                    tap_code16(LT_RBRC);
                 }
             }
             return false;
@@ -338,39 +312,54 @@ static void render_qmk_logo(void) {
 }
 
 static void render_status(void) {
-    // QMK Logo and version information
+    // QMK Logo
     render_qmk_logo();
-    oled_write_P(PSTR("Kyria rev1.2\n\n"), false);
 
     // Host Keyboard Layer Status
-    oled_write_P(PSTR("Layer: "), false);
+    oled_write_P(PSTR("\n  L: "), false);
     switch (get_highest_layer(layer_state)) {
         case _BASE:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write_P(PSTR("BASE\n"), false);
             break;
         case _NAT:
-            oled_write_P(PSTR("Symbols\n"), false);
+            oled_write_P(PSTR("SYMBOLS\n"), false);
             break;
         case _NAV:
-            oled_write_P(PSTR("Navigation\n"), false);
+            oled_write_P(PSTR("NAVIGATION\n"), false);
             break;
         case _ADJ:
-            oled_write_P(PSTR("Adjust\n"), false);
+            oled_write_P(PSTR("ADJUSTMENTS\n"), false);
             break;
         default:
-            oled_write_P(PSTR("Undefined\n"), false);
+            oled_write_P(PSTR("undefined\n"), false);
     }
 
-    // Host Keyboard LED Status
-    uint8_t led_usb_state = host_keyboard_leds();
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+    uint8_t mods = get_mods() | get_oneshot_mods();
+    char mods_str[18] = "";
+    if (mods & MOD_MASK_SHIFT) {
+        strcat(mods_str, " SFT");
+    }
+    if (mods & MOD_MASK_CTRL) {
+        strcat(mods_str, " CTL");
+    }
+    if (mods & MOD_MASK_ALT) {
+            strcat(mods_str, " ALT");
+    }
+    if (mods & MOD_MASK_GUI) {
+        strcat(mods_str, " CMD");
+    }
+    if (strcmp(mods_str, "")) {
+        oled_write_P(PSTR("\n  M:"), false);
+    } else {
+        oled_write_P(PSTR("\n"), false);
+    }
+    strcat(mods_str, "\n");
+    oled_write(mods_str, false);
 }
 
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        render_status();
     } else {
         render_kyria_logo();
     }
@@ -382,17 +371,17 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
         if (clockwise) {
-            tap_code(KC_VOLD);
-        } else {
             tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
         }
     }
     else if (index == 1) {
         // Page up/Page down
         if (clockwise) {
-            tap_code(KC_PGUP);
-        } else {
             tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
         }
     }
 }
@@ -402,7 +391,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 typedef enum {
     SINGLE_TAP,
     SINGLE_HOLD,
-    DOUBLE_SINGLE_TAP
+    DOUBLE_TAP
 } td_state_t;
 
 // create a global instance of the tapdance state type
@@ -418,7 +407,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
         }
     }
     if (state->count == 2) {
-        return DOUBLE_SINGLE_TAP;
+        return DOUBLE_TAP;
     }
     else {
         return 3; // any number higher than the maximum state value you return above
@@ -433,9 +422,10 @@ void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
             tap_code16(G(LT_C));
             break;
         case SINGLE_HOLD:
-            tap_code16(G(LT_A));
+            tap_code16(A(KC_LEFT));
+            tap_code16(S(A(KC_RIGHT)));
             break;
-        case DOUBLE_SINGLE_TAP:
+        case DOUBLE_TAP:
             tap_code16(G(LT_V));
     }
 }
