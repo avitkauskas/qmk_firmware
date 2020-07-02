@@ -37,7 +37,8 @@ enum custom_keycodes {
 
 // For the CA_CC_CV (Select all, copy, paste)
 enum {
-    CA_CC_CV = 0
+    CA_CC_CV = 0,
+    SPC_NAV
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -50,23 +51,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ BS  │  A  │  S  │  R  │  T  │  G  │                          │  K  │  N  │  E  │  I  │  O  │ ' " │
      * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
      * │A/C/P│  Z  │  X  │  C  │  V  │  B  │  {  │  [  │  │  ]  │  }  │  M  │  H  │ , ; │ . : │ ? ! │ - _ │
-     * │     │     │     │     │     │     │ Alt │Ctrl │  │Ctrl │ Alt │     │     │     │     │     │     │
+     * │     │     │     │     │     │     │ Alt │ Cmd │  │Ctrl │ Alt │     │     │     │     │     │     │
      * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
-     *                   │ Adj │ Cmd │ Nat │CLock│ Tab │  │Enter│ Nav │Space│ Cmd │     │
-     *                   │     │     │     │Shift│     │  │     │     │     │     │     │
+     *                   │ Adj │ Cmd │ Nat │CLock│ Tab │  │Enter│Space│Space│ Cmd │     │
+     *                   │     │     │     │Shift│ Nav │  │ Nav │ Nav │     │     │     │
      *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
      */
     [_BASE] = LAYOUT(
-      KC_ESC,       LT_Q, LT_W, LT_D, LT_P, LT_F,                                       LT_J, LT_L, LT_U,    LT_Y,   MY_LPRN, MY_RPRN,
-      KC_BSPC,      LT_A, LT_S, LT_R, LT_T, LT_G,                                       LT_K, LT_N, LT_E,    LT_I,   LT_O,    LT_QUOT,
-      TD(CA_CC_CV), LT_Z, LT_X, LT_C, LT_V, LT_B, MY_LCBR, MY_LBRC,   MY_RBRC, MY_RCBR, LT_M, LT_H, LT_COMM, LT_DOT, MY_QUES, MY_MINS,
-         TG(_ADJ), OSM(MOD_LGUI), OSL(_NAT), OSM(MOD_LSFT), KC_TAB,   KC_ENT, TT(_NAV), KC_SPC, OSM(MOD_LGUI), G(KC_UP)
+      KC_ESC,       LT_Q, LT_W, LT_D, LT_P, LT_F,                                              LT_J, LT_L, LT_U,    LT_Y,   MY_LPRN, MY_RPRN,
+      KC_BSPC,      LT_A, LT_S, LT_R, LT_T, LT_G,                                              LT_K, LT_N, LT_E,    LT_I,   LT_O,    LT_QUOT,
+      TD(CA_CC_CV), LT_Z, LT_X, LT_C, LT_V, LT_B, MY_LCBR, MY_LBRC,          MY_RBRC, MY_RCBR, LT_M, LT_H, LT_COMM, LT_DOT, MY_QUES, MY_MINS,
+      TG(_ADJ), OSM(MOD_LGUI), OSL(_NAT), OSM(MOD_LSFT), LT(_NAV, KC_TAB),   LT(_NAV, KC_ENT), TD(SPC_NAV), KC_SPC, OSM(MOD_LGUI), G(KC_UP)
     ),
 /*
  * National Layer: National symbols, numbers and special characters
  *
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
- * │  @  │  1  │  2  │  3  │  4  │  5  │                          │  6  │  7  │  8  │  9  │  0  │  =  │
+ * │  @  │  5  │  3  │  1  │  7  │  9  │                          │  4  │  2  │  0  │  6  │  8  │  =  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
  * │     │  Ą  │  Š  │  Ū  │  Ž  │  <  │                          │  >  │  Ų  │  Ė  │  Į  │  +  │  -  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -77,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
  */
     [_NAT] = LAYOUT(
-        LT_AT,   LT_1,    LT_2,    LT_3,    LT_4,    LT_5,                                          LT_6,    LT_7,    LT_8,    LT_9,    LT_0,    LT_EQL,
+        LT_AT,   LT_5,    LT_3,    LT_1,    LT_7,    LT_9,                                          LT_4,    LT_2,    LT_0,    LT_6,    LT_8,    LT_EQL,
         _______, LT_AOGO, LT_SCAR, LT_UMAC, LT_ZCAR, LT_LABK,                                       LT_RABK, LT_UOGO, LT_EDOT, LT_IOGO, LT_PLUS, LT_MINS,
         LT_HASH, LT_PERC, LT_TILD, LT_CIRC, LT_CCAR, LT_AMPR, LT_IEXL, LT_DQL9,   LT_DQH6, LT_IQUE, LT_PIPE, LT_EOGO, _______, _______, LT_ASTR, LT_SLSH,
                                    _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
@@ -88,9 +89,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
 * │     │ XXX │ XXX │ Mw↑ │ Mw↓ │ XXX │                          │ XXX │ Pg↓ │ Pg↑ │ XXX │ XXX │ XXX │
 * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
-* │     │ XXX │ Ms← │ Ms↑ │ Ms→ │ XXX │                          │ XXX │  ←  │  ↑  │  →  │ XXX │ XXX │
+* │     │ Ms← │ Ms← │ Ms↑ │ Ms→ │ XXX │                          │ XXX │  ←  │  ↑  │  →  │  →  │ XXX │
 * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-* │     │ XXX │ XXX │ Ms↓ │ XXX │ XXX │ Mb1 │ Mb3 │  │ Mb2 │ Mb1 │ XXX │ XXX │  ↓  │ XXX │ XXX │ XXX │
+* │     │ XXX │ XXX │ Ms↓ │ XXX │ XXX │ Mb3 │     │  │ Mb2 │ Mb1 │ XXX │ XXX │  ↓  │ XXX │ XXX │ XXX │
 * └─────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤  ├─────┼─────┼─────┼─────┼─────┼─────┴─────┴─────┘
 *                   │     │     │ Alt │     │     │  │     │     │     │Ctrl │     │
 *                   │     │     │     │     │     │  │     │     │     │     │     │
@@ -98,8 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
     [_NAV] = LAYOUT(
       _______, XXXXXXX, XXXXXXX, KC_WH_D, KC_WH_U, XXXXXXX,                                       XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX,
-      _______, XXXXXXX, KC_MS_L, KC_MS_U, KC_MS_R, XXXXXXX,                                       XXXXXXX, KC_LEFT, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX,
-      _______, XXXXXXX, XXXXXXX, KC_MS_D, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN3,   KC_BTN2, KC_BTN1, XXXXXXX, XXXXXXX, KC_DOWN, XXXXXXX, XXXXXXX, XXXXXXX,
+      _______, KC_MS_L, KC_MS_L, KC_MS_U, KC_MS_R, XXXXXXX,                                       XXXXXXX, KC_LEFT, KC_UP,   KC_RGHT, KC_RGHT, XXXXXXX,
+      _______, XXXXXXX, XXXXXXX, KC_MS_D, XXXXXXX, XXXXXXX, KC_BTN3, _______,   KC_BTN2, KC_BTN1, XXXXXXX, XXXXXXX, KC_DOWN, XXXXXXX, XXXXXXX, XXXXXXX,
                            _______, _______, OSM(MOD_LALT), _______, _______,   _______, _______, _______, OSM(MOD_LCTL), _______
     ),
 /*
@@ -259,9 +260,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MY_LBRC:
             if(record->event.pressed) {
                 my_hash_timer = timer_read();
-                register_code(KC_LCTL);
+                register_code(KC_LGUI);
             } else {
-                unregister_code(KC_LCTL);
+                unregister_code(KC_LGUI);
                 if (timer_elapsed(my_hash_timer) < TAPPING_TERM) {
                     tap_code16(LT_LBRC);
                 }
@@ -377,7 +378,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
     else if (index == 1) {
-        // Page up/Page down
         if (clockwise) {
             tap_code(KC_PGDN);
         } else {
@@ -430,7 +430,30 @@ void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+static bool was_held = false;
+void SPC_NAV_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP:
+            tap_code(KC_SPC);
+            break;
+        case SINGLE_HOLD:
+            was_held = true;
+            layer_on(_NAV);
+            break;
+        case DOUBLE_TAP:
+            layer_invert(_NAV);
+    }
+}
+
+void SPC_NAV_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (was_held) {
+        layer_off(_NAV);
+        was_held = false;
+    }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL)
+    [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL),
+    [SPC_NAV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, SPC_NAV_finished, SPC_NAV_reset)
 };
-// Just add TD(CA_CC_CV) anywhere in your layout to use
