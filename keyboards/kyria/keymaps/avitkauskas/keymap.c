@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * National Layer: National symbols, numbers and special characters
  *
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐                          ┌─────┬─────┬─────┬─────┬─────┬─────┐
- * │  @  │  5  │  3  │  1  │  7  │  9  │                          │  4  │  2  │  0  │  6  │  8  │  =  │
+ * │  @  │  1  │  2  │  3  │  4  │  5  │                          │  6  │  7  │  8  │  9  │  0  │  =  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤                          ├─────┼─────┼─────┼─────┼─────┼─────┤
  * │     │  Ą  │  Š  │  Ū  │  Ž  │  <  │                          │  >  │  Ų  │  Ė  │  Į  │  +  │  -  │
  * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┬─────┐  ┌─────┬─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
  */
     [_NAT] = LAYOUT(
-        LT_AT,   LT_5,    LT_3,    LT_1,    LT_7,    LT_9,                                          LT_4,    LT_2,    LT_0,    LT_6,    LT_8,    LT_EQL,
+        LT_AT,   LT_1,    LT_2,    LT_3,    LT_4,    LT_5,                                          LT_6,    LT_7,    LT_8,    LT_9,    LT_0,    LT_EQL,
         _______, LT_AOGO, LT_SCAR, LT_UMAC, LT_ZCAR, LT_LABK,                                       LT_RABK, LT_UOGO, LT_EDOT, LT_IOGO, LT_PLUS, LT_MINS,
         LT_HASH, LT_PERC, LT_TILD, LT_CIRC, LT_CCAR, LT_AMPR, LT_IEXL, LT_DQL9,   LT_DQH6, LT_IQUE, LT_PIPE, LT_EOGO, _______, _______, LT_ASTR, LT_SLSH,
                                    _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
