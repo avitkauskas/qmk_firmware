@@ -38,7 +38,8 @@ enum custom_keycodes {
 // For the CA_CC_CV (Select all, copy, paste)
 enum {
     CA_CC_CV = 0,
-    SPC_NAV
+    SPC_NAV,
+    SFT_NAV
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -58,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                   └─────┴─────┴─────┴─────┴─────┘  └─────┴─────┴─────┴─────┴─────┘
      */
     [_BASE] = LAYOUT(
-      KC_ESC,       LT_Q, LT_W, LT_D, LT_P, LT_F,                                              LT_J, LT_L, LT_U,    LT_Y,   MY_LPRN, MY_RPRN,
-      KC_BSPC,      LT_A, LT_S, LT_R, LT_T, LT_G,                                              LT_K, LT_N, LT_E,    LT_I,   LT_O,    LT_QUOT,
-      TD(CA_CC_CV), LT_Z, LT_X, LT_C, LT_V, LT_B, MY_LCBR, MY_LBRC,          MY_RBRC, MY_RCBR, LT_M, LT_H, LT_COMM, LT_DOT, MY_QUES, MY_MINS,
-      TG(_ADJ), OSM(MOD_LGUI), OSL(_NAT), OSM(MOD_LSFT), LT(_NAV, KC_TAB),   LT(_NAV, KC_ENT), TD(SPC_NAV), KC_SPC, OSM(MOD_LGUI), G(KC_UP)
+      KC_ESC,  LT_Q, LT_W, LT_D, LT_P, LT_F,                                               LT_J, LT_L, LT_U,    LT_Y,   MY_LPRN, MY_RPRN,
+      KC_BSPC, LT_A, LT_S, LT_R, LT_T, LT_G,                                               LT_K, LT_N, LT_E,    LT_I,   LT_O,    MY_MINS,
+      KC_TAB,  LT_Z, LT_X, LT_C, LT_V, LT_B, MY_LCBR, MY_LBRC,           MY_RBRC, MY_RCBR, LT_M, LT_H, LT_COMM, LT_DOT, MY_QUES, LT_QUOT,
+      TG(_ADJ), OSM(MOD_LGUI), OSL(_NAT), OSM(MOD_LSFT), TD(SFT_NAV),    LT(_NAV, KC_ENT), TD(SPC_NAV), KC_SPC, OSM(MOD_LGUI), G(KC_UP)
     ),
 /*
  * National Layer: National symbols, numbers and special characters
@@ -390,7 +391,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 // Tapdance states
 typedef enum {
     SINGLE_TAP,
-    SINGLE_HOLD,
+    HOLD,
     DOUBLE_TAP
 } td_state_t;
 
@@ -403,7 +404,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
         if (state->interrupted || !state->pressed) {
             return SINGLE_TAP;
         } else {
-            return SINGLE_HOLD;
+            return HOLD;
         }
     }
     if (state->count == 2) {
@@ -421,7 +422,7 @@ void CA_CC_CV_finished(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             tap_code16(G(LT_C));
             break;
-        case SINGLE_HOLD:
+        case HOLD:
             tap_code16(A(KC_LEFT));
             tap_code16(S(A(KC_RIGHT)));
             break;
@@ -437,7 +438,7 @@ void SPC_NAV_finished(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             tap_code(KC_SPC);
             break;
-        case SINGLE_HOLD:
+        case HOLD:
             was_held = true;
             layer_on(_NAV);
             break;
@@ -453,7 +454,30 @@ void SPC_NAV_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void SFT_NAV_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP:
+            set_oneshot_mods(MOD_LSFT);
+            break;
+        case HOLD:
+            was_held = true;
+            layer_on(_NAV);
+            break;
+        case DOUBLE_TAP:
+            tap_code16(G(LT_V));;
+    }
+}
+
+void SFT_NAV_reset(qk_tap_dance_state_t *state, void *user_data) {
+    if (was_held) {
+        layer_off(_NAV);
+        was_held = false;
+    }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
     [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL),
-    [SPC_NAV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, SPC_NAV_finished, SPC_NAV_reset)
+    [SPC_NAV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, SPC_NAV_finished, SPC_NAV_reset),
+    [SFT_NAV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, SFT_NAV_finished, SFT_NAV_reset)
 };
